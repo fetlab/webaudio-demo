@@ -30,13 +30,20 @@ function visualize(stream) {
   const source = audioCtx.createMediaStreamSource(stream);
 
   const analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 2048;
+  analyser.fftSize = 8192;
   const bufferLength = analyser.frequencyBinCount;
   const dataArray = new Uint8Array(bufferLength);
 
   source.connect(analyser);
 
   draw();
+
+	//Analyze data here
+	function process_data(data)
+	{
+		let maxval = Math.max.apply(Math, data);
+		console.log(maxval);
+	}
 
   function draw() {
     const WIDTH = canvas.width;
@@ -48,6 +55,9 @@ function visualize(stream) {
 
     //analyser.getByteFrequencyData(dataArray);   //Get FFT
     analyser.getByteTimeDomainData(dataArray);    //Get waveform
+
+		//Abusing the draw function to easily get the data array
+		process_data(dataArray);
 
 		//Clear the canvas
     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
