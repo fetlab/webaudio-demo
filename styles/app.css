@@ -166,3 +166,12 @@ input[type=checkbox]:checked ~ aside {
     margin: 0 auto;
   }
 }
+
+#log-container { overflow: auto; height: 150px; }
+
+.log-warn { color: orange }
+.log-error { color: red }
+.log-info { color: skyblue }
+.log-log { color: silver }
+
+.log-warn, .log-error { font-weight: bold; }
