@@ -3,23 +3,25 @@ const canvas = document.querySelector('.visualizer');
 const canvasCtx = canvas.getContext("2d");
 let   audioCtx;
 
-//main block for doing the audio recording
-if(navigator.mediaDevices.getUserMedia) {
-  const constraints = { audio: true };
+function startRecording() {
+	//main block for doing the audio recording
+	if(navigator.mediaDevices.getUserMedia) {
+		const constraints = { audio: true };
 
-  let onSuccess = function(stream) {
-    const mediaRecorder = new MediaRecorder(stream);
-    visualize(stream);
-  }
+		let onSuccess = function(stream) {
+			const mediaRecorder = new MediaRecorder(stream);
+			visualize(stream);
+		}
 
-  let onError = function(err) {
-    console.log('The following error occured: ' + err);
-  }
+		let onError = function(err) {
+			console.log('The following error occured: ' + err);
+		}
 
-  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+		navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
 
-} else {
-   console.log('getUserMedia not supported on your browser!');
+	} else {
+		 console.log('getUserMedia not supported on your browser!');
+	}
 }
 
 function visualize(stream) {
@@ -53,8 +55,8 @@ function visualize(stream) {
 		// called again the next time
     requestAnimationFrame(draw);
 
-    //analyser.getByteFrequencyData(dataArray);   //Get FFT
-    analyser.getByteTimeDomainData(dataArray);    //Get waveform
+    analyser.getByteFrequencyData(dataArray);   //Get FFT
+    //analyser.getByteTimeDomainData(dataArray);    //Get waveform
 
 		//Abusing the draw function to easily get the data array
 		process_data(dataArray);
