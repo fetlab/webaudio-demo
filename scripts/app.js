@@ -97,6 +97,8 @@ function visualize(stream) {
 window.onresize = function() {
 	const mainSection = document.querySelector('.main-controls');
   canvas.width = mainSection.offsetWidth;
+	canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+	canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 window.onresize();
